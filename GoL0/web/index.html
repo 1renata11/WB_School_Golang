@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Поиск заказа</title>
+</head>
+<body>
+  <h1>Найти заказ по Order UID</h1>
+  <input type="text" id="orderId" placeholder="Введите order_uid">
+  <button onclick="search()">Искать</button>
+  <pre id="result"></pre>
+
+  <script>
+    function search() {
+      const id = document.getElementById("orderId").value;
+      fetch(`/order?id=${id}`)
+        .then(res => res.ok ? res.json() : res.text())
+        .then(data => {
+          document.getElementById("result").textContent = 
+            typeof data === 'string' ? data : JSON.stringify(data, null, 2);
+        });
+    }
+  </script>
+</body>
+</html>
+
